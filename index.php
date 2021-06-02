@@ -1,26 +1,16 @@
 <?php
-require 'vendor/autoload.php';
-use Predis\Client as Client;
-use Tracy\Debugger;
 
-Debugger::enable();
+include 'Redis.php';
 
-/*
-$client = new Client(
-	[
-		'scheme' => 'tcp',
-		'host'   => '127.0.0.1',
-		'port'   => 6379,
-	]
-);
-*/
-$client = new Client('tcp://127.0.0.1:6379');
-$folder_structure = [
-	'cache',
-	'app',
-	'service',
-	'lang_' . rand(0, 9),
-];
+function idx() {
+	return [
+		'cache',
+		'app',
+		'service',
+		'lang_' . rand(0, 999),
+	];
+}
+
 $input = [
 	'Neo',
 	'Morpheus',
@@ -29,11 +19,17 @@ $input = [
 	'Tank'
 ];
 
-$redis_cache = implode(":", $folder_structure);
-$client->set($redis_cache, serialize($input));
-$client->expire($redis_cache, 3600);
+$inputWithTTL = [
+	'Morpheus',
+	'Cypher',
+];
 
-$value = $client->get($redis_cache);
-
+$identifier = idx();
+RedisPersist::set($identifier, $input);
+$value = RedisPersist::get($identifier);
 dump($value);
-dump(unserialize($value));
+
+$identifier = idx();
+RedisPersist::set($identifier, $inputWithTTL, true);
+$value = RedisPersist::get($identifier);
+dump($value);
