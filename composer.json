@@ -1,6 +1,6 @@
 {
     "require": {
-        "predis/predis": "^1.1",
-        "tracy/tracy": "^2.8"
+        "predis/predis": "^2.0",
+        "tracy/tracy": "^2.9"
     }
 }

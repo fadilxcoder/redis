@@ -15,6 +15,7 @@
 ## Memcache
 
 - https://pecl.php.net/package/memcache/4.0.5.2/windows (php dll)
+- https://github.com/nono303/PHP-memcache-dll (PHP - pecl-memcache Windows binaries)
 - https://static.runoob.com/download/memcached-win64-1.4.4-14.zip (.exe windows)
 - RUN `CLI -  Command Prompt` as Administrator,
 - `c:\memcached\memcached.exe -d install`
